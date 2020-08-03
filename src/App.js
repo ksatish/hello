@@ -1,26 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ReactMic } from "@cleandersonlobo/react-mic";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      record: false,
+      blobURL: "",
+    };
+  }
+
+  startRecording = () => {
+    this.setState({
+      record: true,
+    });
+  };
+
+  stopRecording = () => {
+    this.setState({
+      record: false,
+    });
+  };
+
+  onData(recordedBlob) {
+    console.log("chunk of real-time data is: ", recordedBlob);
+  }
+
+  onStop = (recordedBlob) => {
+    console.log("recordedBlob is: ", recordedBlob);
+    this.setState({
+      blobURL: recordedBlob.blobURL,
+    });
+  };
+
+  render() {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <ReactMic
+          record={this.state.record}
+          className="sound-wave"
+          onStop={this.onStop}
+          onData={this.onData}
+          strokeColor="#000000"
+          backgroundColor="#FF4081"
+        />
+        <div style={{display:"flex"}}>
+          <button onClick={this.startRecording} type="button">
+            Start
+          </button>
+          <button onClick={this.stopRecording} type="button">
+            Stop
+          </button>
+        </div>
+        <audio src={this.state.blobURL} controls="controls" />
+      </div>
+    );
+  }
 }
-
-export default App;
