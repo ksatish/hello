@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Custom hot spots</title>
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css" />
+    <script
+      type="text/javascript"
+      src="https://cdn.pannellum.org/2.3/pannellum.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+      #panorama {
+        width: 100vw;
+        height: 100vh;
+      }
+      .custom-hotspot {
+        width: 20px;
+        height: 20px;
+        background: #8bc34a;
+        border-radius: 50%;
+        -webkit-animation: pulse 3s ease-in-out infinite;
+        animation: pulse 3s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        70% {
+          box-shadow: 0px 0px 0px 0px rgba(139, 195, 74, 0.5);
+        }
+        100% {
+          box-shadow: 0px 0px 0px 50px rgba(139, 195, 74, 0);
+        }
+      }
+      div.custom-tooltip span {
+        visibility: hidden;
+        position: absolute;
+        border-radius: 3px;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        max-width: 200px;
+        padding: 5px 10px;
+        margin-left: -220px;
+        cursor: default;
+      }
+      div.custom-tooltip:hover span {
+        visibility: visible;
+      }
+      div.custom-tooltip:hover span:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-color: #fff transparent transparent transparent;
+        bottom: -20px;
+        left: -10px;
+        margin: 0 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="panorama"></div>
+    <div class="modal fade" id="dinning" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title">Dining Table Sets</h4>
+          </div>
+          <div class="modal-body">
+            <div style="float: left;">
+              <div class="thumbinner" style="width: 222px;">
+                <a
+                  href="/wiki/File:%C5%81a%C5%84cut_Palace_-_inside_06.JPG"
+                  class="image"
+                  ><img
+                    alt=""
+                    src="//upload.wikimedia.org/wikipedia/commons/thumb/a/a2/%C5%81a%C5%84cut_Palace_-_inside_06.JPG/220px-%C5%81a%C5%84cut_Palace_-_inside_06.JPG"
+                    decoding="async"
+                    width="220"
+                    height="165"
+                    class="thumbimage"
+                    srcset="
+                      //upload.wikimedia.org/wikipedia/commons/thumb/a/a2/%C5%81a%C5%84cut_Palace_-_inside_06.JPG/330px-%C5%81a%C5%84cut_Palace_-_inside_06.JPG 1.5x,
+                      //upload.wikimedia.org/wikipedia/commons/thumb/a/a2/%C5%81a%C5%84cut_Palace_-_inside_06.JPG/440px-%C5%81a%C5%84cut_Palace_-_inside_06.JPG 2x
+                    "
+                    data-file-width="3072"
+                    data-file-height="2304"
+                /></a>
+                <div class="thumbcaption">
+                  <div class="magnify">
+                    <a
+                      href="/wiki/File:%C5%81a%C5%84cut_Palace_-_inside_06.JPG"
+                      class="internal"
+                      title="Enlarge"
+                    ></a>
+                  </div>
+                  Dining Room in the
+                  <a href="/wiki/%C5%81a%C5%84cut_Castle" title="Łańcut Castle"
+                    >Łańcut Castle</a
+                  >, Poland
+                </div>
+              </div>
+            </div>
+            <p>
+              In the
+              <a href="/wiki/Middle_Ages" title="Middle Ages">Middle Ages</a>,
+              <a href="/wiki/Upper_class" title="Upper class">upper class</a>
+              <a href="/wiki/British_people" title="British people">Britons</a>
+              and other <a href="/wiki/Europe" title="Europe">European</a>
+              <a href="/wiki/Nobility" title="Nobility">nobility</a> in
+              <a href="/wiki/Castle" title="Castle">castles</a> or large
+              <a href="/wiki/Manor_house" title="Manor house">manor houses</a>
+              dined in the
+              <a href="/wiki/Great_hall" title="Great hall">great hall</a>. This
+              was a large multi-function room capable of seating the bulk of the
+              population of the house. The family would sit at the head table on
+              a raised <a href="/wiki/Dais" title="Dais">dais</a>, with the rest
+              of the population arrayed in order of diminishing rank away from
+              them. Tables in the great hall would tend to be long trestle
+              tables with benches. The sheer number of people in a Great Hall
+              meant it would probably have had a busy, bustling atmosphere.
+              Suggestions that it would also have been quite smelly and smoky
+              are probably, by the standards of the time, unfounded. These rooms
+              had large chimneys and high ceilings and there would have been a
+              free flow of air through the numerous door and window openings.
+            </p>
+            <br />
+            <p>
+              It is true that the owners of such properties began to develop a
+              taste for more intimate gatherings in smaller 'parlers' or 'privee
+              parlers' off the main hall but this is thought to be due as much
+              to political and social changes as to the greater comfort afforded
+              by such rooms. Over time, the nobility took more of their meals in
+              the <a href="/wiki/Parlour" title="Parlour">parlour</a>, and the
+              parlour became, functionally, a dining room (or was split into two
+              separate rooms). It also migrated farther from the Great Hall,
+              often accessed via grand ceremonial
+              <a href="/wiki/Staircase" class="mw-redirect" title="Staircase"
+                >staircases</a
+              >
+              from the dais in the Great Hall. Eventually dining in the Great
+              Hall became something that was done primarily on special
+              occasions.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="tap" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title">How Does a Water Tap Work?</h4>
+          </div>
+          <div class="modal-body">
+            <div class="full module moduleText" id="mod_13515120">
+              <h2 class="subtitle">
+                Troubleshooting and Repairing Water Faucets and Valves
+              </h2>
+              <div class="txtd" id="txtd_13515120">
+                <p>
+                  Faucets and globe valves, the type commonly used in home water
+                  systems, are very similar in construction, and the repair
+                  instructions given below apply to both. Your faucet or valves
+                  may differ somewhat in general design from the one shown here,
+                  because both faucets and valves come in a wide variety of
+                  styles.
+                </p>
+                <p>
+                  Mixing faucets, which are found on sinks, laundry trays and
+                  bathtubs are actually two separate units with a common spout.
+                  Each unit is independently repaired.
+                </p>
+                <p>
+                  If a faucet drips when closed or vibrates ("sings" or
+                  "flutters") when opened, the trouble is usually the washer at
+                  the lower end of the spindle. If it leaks around the spindle
+                  when opened, new packing is needed. To replace the washer:
+                </p>
+                <ol>
+                  <li>
+                    Shut off the water at the shut-off valve nearest the
+                    particular faucet.
+                  </li>
+                  <li>
+                    Disassemble the faucet—the handle, packing, nut, packing and
+                    spindle—in that order. You may have to set the handle back
+                    on the spindle and use it to unscrew and remove the spindle.
+                  </li>
+                  <li>
+                    Remove the screw and worn washer from the spindle. Scrape
+                    all the worn washer parts from the cup and install a new
+                    washer of the proper size.
+                  </li>
+                  <li>
+                    Examine the seat on the faucet body. If it is nicked or
+                    rough, reface it. Hardware or plumbing supply stores carry
+                    the necessary seat-dressing tool. Hold the tool vertically
+                    when refacing the seat.
+                  </li>
+                  <li>
+                    Reassemble the faucet. Handles of mixing faucets should be
+                    in matched positions.
+                  </li>
+                </ol>
+                <p>
+                  To replace the packing, simply remove the handle, packing nut,
+                  and old packing, and install a new packing washer. If a
+                  packing washer is not available, you can wrap stranded
+                  graphite-asbestos wicking around the spindle. Turn the packing
+                  nut down tight against the wicking. Other faucet parts may be
+                  replaced as necessary.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="chimney" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title">Chimney | architecture</h4>
+          </div>
+          <div class="modal-body">
+            <div
+              aria-level="3"
+              class="LGOjhe"
+              role="heading"
+              data-attrid="wa:/description"
+              data-hveid="CBEQAw"
+            >
+              <span class="ILfuVd"
+                ><span class="hgKElc"
+                  >A <b>chimney</b> is an architectural ventilation structure
+                  made of masonry, clay or metal that isolates hot toxic exhaust
+                  gases or smoke produced by a boiler, stove, furnace,
+                  incinerator or fireplace from human living areas. ... The
+                  space inside a <b>chimney</b> is called the <b>flue</b>.</span
+                ></span
+              >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Create viewer
+      function handleHotspotClick(e) {
+        const openModal = e.target.innerText;
+        if (openModal === "Dining Table With Chairs") {
+          $("#dinning").modal("show");
+        } else if (openModal === "Water Tap") {
+          $("#tap").modal("show");
+        } else if (openModal === "Chimney") {
+          $("#chimney").modal("show");
+        }
+      }
+      viewer = pannellum.viewer("panorama", {
+        type: "equirectangular",
+        panorama: "./images/aus.jpg",
+        autoLoad: true,
+        hotSpots: [
+          {
+            pitch: -10.1,
+            yaw: -3.5,
+            cssClass: "custom-hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: "Dining Table With Chairs",
+            clickHandlerFunc: handleHotspotClick,
+          },
+          {
+            pitch: -9.4,
+            yaw: 222.6,
+            cssClass: "custom-hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: "Chimney",
+            clickHandlerFunc: handleHotspotClick,
+          },
+          {
+            pitch: -9.9,
+            yaw: -54.4,
+            cssClass: "custom-hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: "Water Tap",
+            clickHandlerFunc: handleHotspotClick,
+          },
+        ],
+      });
+
+      // Hot spot creation function
+      function hotspot(hotSpotDiv, args) {
+        hotSpotDiv.classList.add("custom-tooltip");
+        var span = document.createElement("span");
+        span.innerHTML = args;
+        hotSpotDiv.appendChild(span);
+        span.style.width = span.scrollWidth - 20 + "px";
+        span.style.marginLeft =
+          -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2 + "px";
+        span.style.marginTop = -span.scrollHeight - 12 + "px";
+      }
+    </script>
+  </body>
+</html>
