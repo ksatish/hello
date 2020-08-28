@@ -97,6 +97,9 @@
           y: 3,
           z: 1.5,
           page: "poc_detail_section.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
         },
         {
           id: "2",
@@ -105,6 +108,9 @@
           y: 0,
           z: 1.8,
           page: "poc_with_background_2d_image.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
         },
         {
           id: "3",
@@ -113,6 +119,9 @@
           y: -0.5,
           z: 1.9,
           page: "poc_with_background_cubemap_sky.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
         },
         {
           id: "4",
@@ -121,6 +130,9 @@
           y: 0.6,
           z: 1.8,
           page: "poc_with_background_cubemap_tool.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
         },
       ];
 
@@ -144,12 +156,12 @@
         }
 
         camera = new THREE.PerspectiveCamera(
-          40,
+          60,
           window.innerWidth / window.innerHeight,
           1,
           100
         );
-        camera.position.set(5, 2, 8);
+        camera.position.set(0, 0, 10);
 
         renderer = new THREE.WebGLRenderer();
         renderer.setPixelRatio(window.devicePixelRatio);
@@ -214,46 +226,56 @@
           labelRenderer.render(scene, camera);
         }
 
-        function tweenCamera(targetPosition, duration, page) {
-          controls.enabled = false;
+        function tweenCamera(targetPosition, duration, page = "") {
+          return new Promise(function (resolve, reject) {
+            controls.enabled = false;
 
-          var position = new THREE.Vector3().copy(camera.position);
-		  var obj;
+            var position = new THREE.Vector3().copy(camera.position);
+            var obj;
 
-          var tween = new TWEEN.Tween(position)
-            .to(targetPosition, duration)
-            .easing(TWEEN.Easing.Sinusoidal.In)
-            .onUpdate(function () {
-              camera.position.copy(position);
-              camera.lookAt(controls.target);
-            })
-            .onComplete(function () {
-              camera.position.copy(targetPosition);
-              camera.lookAt(controls.target);
-              controls.enabled = true;
-              
-              for (var i = scene.children.length - 1; i >= 0; i--) {
-                obj = scene.children[i];
-                scene.remove(obj);
-              }
-			  scene.background = new THREE.Color( 0xffffff );
-              window.location = page;
-            })
-            .start();
+            var tween = new TWEEN.Tween(position)
+              .to(targetPosition, duration)
+              .easing(TWEEN.Easing.Sinusoidal.In)
+              .onUpdate(function () {
+                camera.position.copy(position);
+                camera.lookAt(controls.target);
+              })
+              .onComplete(function () {
+                camera.position.copy(targetPosition);
+                camera.lookAt(controls.target);
+                controls.enabled = true;
+
+                if (page !== "") {
+                  for (var i = scene.children.length - 1; i >= 0; i--) {
+                    obj = scene.children[i];
+                    scene.remove(obj);
+                  }
+                  scene.background = new THREE.Color(0xffffff);
+                  window.location = page;
+                }
+                resolve(true);
+              })
+              .start();
+          });
         }
 
         let handleHotClick = function handleHotClick(e) {
-          // window.location = "./poc_detail_section.html";
-          console.log("e", e.currentTarget);
           var x = e.currentTarget.getAttribute("data_x");
           var y = e.currentTarget.getAttribute("data_y");
           var z = e.currentTarget.getAttribute("data_z");
+          var sidePosX = e.currentTarget.getAttribute("sidePosX");
+          var sidePosY = e.currentTarget.getAttribute("sidePosY");
+          var sidePosZ = e.currentTarget.getAttribute("sidePosZ");
           var page = e.currentTarget.getAttribute("data_page");
 
+          var sidePosition = new THREE.Vector3(sidePosX, sidePosY, sidePosZ);
           var targetPosition = new THREE.Vector3(x, y, z);
-          var duration = 6000;
+          var duration = 2000;
 
-          tweenCamera(targetPosition, duration, page);
+          tweenCamera(sidePosition, duration, "").then(function (e) {
+            tweenCamera(targetPosition, duration, page);
+          });
+
           return false;
         };
 
@@ -264,7 +286,18 @@
           }
         };
 
-        function makeHotspot(id, x, y, z, page, content, hotspotClickHandler) {
+        function makeHotspot(
+          id,
+          x,
+          y,
+          z,
+          sidePosX,
+          sidePosY,
+          sidePosZ,
+          page,
+          content,
+          hotspotClickHandler
+        ) {
           let earthDiv = document.createElement("div");
           earthDiv.className = "label";
           earthDiv.id = id;
@@ -273,6 +306,9 @@
           earthDiv.setAttribute("data_x", x);
           earthDiv.setAttribute("data_y", y);
           earthDiv.setAttribute("data_z", z);
+          earthDiv.setAttribute("sidePosX", sidePosX);
+          earthDiv.setAttribute("sidePosY", sidePosY);
+          earthDiv.setAttribute("sidePosZ", sidePosZ);
           earthDiv.setAttribute("data_page", page);
           let newSpan = document.createElement("span");
           newSpan.textContent = content;
@@ -297,6 +333,9 @@
               hotspot.x,
               hotspot.y,
               hotspot.z,
+              hotspot.sidePosX,
+              hotspot.sidePosY,
+              hotspot.sidePosZ,
               hotspot.page,
               hotspot.title,
               handleHotClick
