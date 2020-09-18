@@ -88,6 +88,12 @@
       var lightProbe, loader;
 
       const glbObj = "./models/LittlestTokyo.glb";
+      //const glbObj = "./models/Box_v1.glb";
+      //const glbObj = "./models/Box_v2.glb";
+      //const glbObj = "./models/WoodenBox.glb";
+      //const glbObj = "./models/UnderWater.glb";
+      //const glbObj = "./models/Horse.glb";
+      //const glbObj = "./models/Flamingo.glb";
 
       const hotspotData = [
         {
@@ -353,7 +359,10 @@
             scene.add(model);
             displayHotspot(hotspotData);
             mixer = new THREE.AnimationMixer(model);
-            mixer.clipAction(gltf.animations[0]).play();
+            console.log("gltf.animations",gltf.animations);
+            if (gltf.animations.length > 0 ){
+              mixer.clipAction(gltf.animations[0]).play();
+            }            
             animate();
           },
           undefined,
