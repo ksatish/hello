@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>three.js css2d - label</title>
+    <link type="text/css" rel="stylesheet" href="main.css" />
+    <style>
+      .label {
+        cursor: pointer;
+        width: 20px;
+        z-index: 1;
+        height: 20px;
+        background: #3fa7f8;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        -webkit-animation: pulse 3s ease-in-out infinite;
+        animation: pulse 3s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        70% {
+          box-shadow: 0px 0px 0px 0px rgba(139, 195, 74, 0.5);
+        }
+        100% {
+          box-shadow: 0px 0px 0px 50px rgba(139, 195, 74, 0);
+        }
+      }
+      div.label span {
+        visibility: hidden;
+        position: absolute;
+        border-radius: 3px;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        max-width: 200px;
+        padding: 5px 10px;
+        margin-left: -118px;
+        cursor: default;
+        top: -44px;
+        right: -46px;
+      }
+      div.label:hover span {
+        visibility: visible;
+      }
+      div.label:hover span:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-color: #fff transparent transparent transparent;
+        bottom: -20px;
+        left: -10px;
+        margin: 0 50%;
+      }
+      div.label:focus {
+        width: 40px;
+        height: 40px;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from "https://threejsfundamentals.org/threejs/resources/threejs/r119/build/three.module.js";
+      import { OrbitControls } from "https://threejsfundamentals.org/threejs/resources/threejs/r119/examples/jsm/controls/OrbitControls.js";
+      import { GLTFLoader } from "https://threejsfundamentals.org/threejs/resources/threejs/r119/examples/jsm/loaders/GLTFLoader.js";
+      import { DRACOLoader } from "https://threejsfundamentals.org/threejs/resources/threejs/r119/examples/jsm/loaders/DRACOLoader.js";
+      import {
+        CSS2DRenderer,
+        CSS2DObject,
+      } from "https://threejsfundamentals.org/threejs/resources/threejs/r119/examples/jsm/renderers/CSS2DRenderer.js";
+
+      import TWEEN from "https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js";
+
+      let camera, scene, renderer, labelRenderer;
+
+      let clock = new THREE.Clock();
+      let textureLoader = new THREE.TextureLoader();
+
+      let earth, moon, mixer, controls;
+
+      var lightProbe, loader;
+
+      //const glbObj = "./models/LittlestTokyo.glb";
+      //const glbObj = "./models/Box_v1.glb";
+      //const glbObj = "./models/Box_v2.glb";
+      //const glbObj = "./models/WoodenBox.glb";
+      const glbObj = "./models/UnderWater.glb";
+      //const glbObj = "./models/Box_Animated.glb";
+      //const glbObj = "./models/Horse.glb";
+      //const glbObj = "./models/Flamingo.glb";
+
+      const hotspotData = [
+        {
+          id: "1",
+          title: "This is city",
+          x: 1.4,
+          y: 3,
+          z: 1.5,
+          page: "poc_detail_section.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
+        },
+        {
+          id: "2",
+          title: "Goodluck Cafe",
+          x: -0.5,
+          y: 0,
+          z: 1.8,
+          page: "poc_with_background_2d_image.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
+        },
+        {
+          id: "3",
+          title: "This is Tram",
+          x: -2.2,
+          y: -0.5,
+          z: 1.9,
+          page: "poc_with_background_cubemap_sky.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
+        },
+        {
+          id: "4",
+          title: "This is office",
+          x: 1.5,
+          y: 0.6,
+          z: 1.8,
+          page: "poc_with_background_cubemap_tool.html",
+          sidePosX: 0,
+          sidePosY: 0,
+          sidePosZ: 5,
+        },
+      ];
+
+      init();
+
+      function init() {
+        scene = new THREE.Scene();
+
+        //showBackgroundColor(0x0000);
+        //showBackground2dImage("./images/sunlight.jpg");
+        //showBackground3dImage("./images/textures/pisa/", ".png");
+        //showBackground3dImage("./images/textures/sky/", ".png");
+        //showBackground3dImage("./images/textures/tool/", ".png");
+        //showBackground3dImage("./images/textures/galaxy/", ".png");
+        //showBackground3dImage("./images/textures/Park3Med/", ".jpg");
+        showBackground3dImage("./images/textures/encora_op1/", ".jpg");
+
+        scene.add(new THREE.HemisphereLight(0xffffff, 0x000000, 0.8));
+        function showBackground2dImage(image) {
+          loader = new THREE.TextureLoader();
+          scene.background = loader.load(image);
+        }
+
+        camera = new THREE.PerspectiveCamera(
+          60,
+          window.innerWidth / window.innerHeight,
+          1,
+          100
+        );
+        camera.position.set(0, 0.5, 2.1);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        document.body.appendChild(renderer.domElement);
+
+        labelRenderer = new CSS2DRenderer();
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.domElement.style.position = "absolute";
+        labelRenderer.domElement.style.top = "0px";
+        document.body.appendChild(labelRenderer.domElement);
+
+        let controls = new OrbitControls(camera, labelRenderer.domElement);
+        controls.target.set(0,1, 0);
+        controls.update();
+        controls.enablePan = false;
+        controls.enableDamping = true;
+
+        let dirLight = new THREE.DirectionalLight(0xffffff);
+        dirLight.position.set(0, 0, 1);
+        scene.add(dirLight);
+
+        function showBackground3dImage(path, extention) {
+          var genCubeUrls = function (prefix, postfix) {
+            return [
+              prefix + "px" + postfix,
+              prefix + "nx" + postfix,
+              prefix + "py" + postfix,
+              prefix + "ny" + postfix,
+              prefix + "pz" + postfix,
+              prefix + "nz" + postfix,
+            ];
+          };
+
+          var urls = genCubeUrls(path, extention);
+
+          new THREE.CubeTextureLoader().load(urls, function (cubeTexture) {
+            cubeTexture.encoding = THREE.sRGBEncoding;
+            scene.background = cubeTexture;
+          });
+        }
+
+        function showBackgroundColor(color) {
+          scene.background = new THREE.Color(color);
+        }
+
+        window.onresize = function () {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        };
+
+        function animate() {
+          requestAnimationFrame(animate);
+          TWEEN.update();
+          let delta = clock.getDelta();
+          mixer.update(delta);
+          controls.update();
+          renderer.render(scene, camera);
+          labelRenderer.render(scene, camera);
+        }
+
+        function tweenCamera(targetPosition, duration, page = "") {
+          return new Promise(function (resolve, reject) {
+            controls.enabled = false;
+
+            var position = new THREE.Vector3().copy(camera.position);
+            var obj;
+
+            var tween = new TWEEN.Tween(position)
+              .to(targetPosition, duration)
+              .easing(TWEEN.Easing.Sinusoidal.In)
+              .onUpdate(function () {
+                camera.position.copy(position);
+                camera.lookAt(controls.target);
+              })
+              .onComplete(function () {
+                camera.position.copy(targetPosition);
+                camera.lookAt(controls.target);
+                controls.enabled = true;
+
+                if (page !== "") {
+                  for (var i = scene.children.length - 1; i >= 0; i--) {
+                    obj = scene.children[i];
+                    scene.remove(obj);
+                  }
+                  scene.background = new THREE.Color(0xffffff);
+                  window.location = page;
+                }
+                resolve(true);
+              })
+              .start();
+          });
+        }
+
+        let handleHotClick = function handleHotClick(e) {
+          var x = e.currentTarget.getAttribute("data_x");
+          var y = e.currentTarget.getAttribute("data_y");
+          var z = e.currentTarget.getAttribute("data_z");
+          var sidePosX = e.currentTarget.getAttribute("sidePosX");
+          var sidePosY = e.currentTarget.getAttribute("sidePosY");
+          var sidePosZ = e.currentTarget.getAttribute("sidePosZ");
+          var page = e.currentTarget.getAttribute("data_page");
+
+          var sidePosition = new THREE.Vector3(sidePosX, sidePosY, sidePosZ);
+          var targetPosition = new THREE.Vector3(x, y, z);
+          var duration = 2000;
+
+          tweenCamera(sidePosition, duration, "").then(function (e) {
+            tweenCamera(targetPosition, duration, page);
+          });
+
+          return false;
+        };
+
+        let hotspotKeyDownHandler = function hotspotKeyDownHandler(e) {
+          if (e.key === "Enter") {
+            window.location = "./poc_detail_section.html";
+            return false;
+          }
+        };
+
+        function makeHotspot(
+          id,
+          x,
+          y,
+          z,
+          sidePosX,
+          sidePosY,
+          sidePosZ,
+          page,
+          content,
+          hotspotClickHandler
+        ) {
+          let earthDiv = document.createElement("div");
+          earthDiv.className = "label";
+          earthDiv.id = id;
+          earthDiv.tabIndex = 0;
+          earthDiv.style.marginTop = "-1em";
+          earthDiv.setAttribute("data_x", x);
+          earthDiv.setAttribute("data_y", y);
+          earthDiv.setAttribute("data_z", z);
+          earthDiv.setAttribute("sidePosX", sidePosX);
+          earthDiv.setAttribute("sidePosY", sidePosY);
+          earthDiv.setAttribute("sidePosZ", sidePosZ);
+          earthDiv.setAttribute("data_page", page);
+          let newSpan = document.createElement("span");
+          newSpan.textContent = content;
+          earthDiv.appendChild(newSpan);
+          earthDiv.addEventListener("click", hotspotClickHandler);
+          earthDiv.addEventListener("keydown", hotspotKeyDownHandler);
+          let earthLabel = new CSS2DObject(earthDiv);
+          earthLabel.position.set(x, y, z);
+          scene.add(earthLabel);
+        }
+
+        let dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath("js/libs/draco/gltf/");
+
+        loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
+
+        function displayHotspot(hotspotData) {
+          hotspotData.forEach((hotspot) => {
+            makeHotspot(
+              hotspot.id,
+              hotspot.x,
+              hotspot.y,
+              hotspot.z,
+              hotspot.sidePosX,
+              hotspot.sidePosY,
+              hotspot.sidePosZ,
+              hotspot.page,
+              hotspot.title,
+              handleHotClick
+            );
+          });
+        }
+
+        loader.load(
+          glbObj,
+          function (gltf) {
+            let model = gltf.scene;
+            model.position.set(0, -2, 0);
+           // model.scale.set(0.01, 0.01, 0.01)
+            scene.add(model);
+            displayHotspot(hotspotData);
+            mixer = new THREE.AnimationMixer(model);
+            console.log("gltf.animations",gltf.animations);
+            if (gltf.animations.length > 0 ){
+              mixer.clipAction(gltf.animations[0]).play();
+            }            
+            animate();
+          },
+          undefined,
+          function (e) {
+            console.error(e);
+          }
+        );
+      }
+    </script>
+  </body>
+</html>
