@@ -87,12 +87,14 @@
 
       var lightProbe, loader;
 
+      
       //const glbObj = "./models/LittlestTokyo.glb";
       //const glbObj = "./models/Box_v1.glb";
       //const glbObj = "./models/Box_v2.glb";
       //const glbObj = "./models/WoodenBox.glb";
       //const glbObj = "./models/UnderWater.glb";
-      const glbObj = "./models/Box_Animated.glb";
+      const glbObj = "./models/City_Environment.glb";
+      //const glbObj = "./models/Box_Animated.glb";
       //const glbObj = "./models/Horse.glb";
       //const glbObj = "./models/Flamingo.glb";
 
@@ -143,6 +145,18 @@
         },
       ];
 
+      const cameraPosition = {
+        x: 0,
+        y: 1,
+        z: 4,
+      };
+
+      const modelPosition = {
+        x: 0,
+        y: -1,
+        z: 0,
+      };
+
       init();
 
       function init() {
@@ -164,12 +178,16 @@
         }
 
         camera = new THREE.PerspectiveCamera(
-          60,
+          80,
           window.innerWidth / window.innerHeight,
           1,
           100
         );
-        camera.position.set(0, 0, 1);
+        camera.position.set(
+          cameraPosition.x,
+          cameraPosition.y,
+          cameraPosition.z
+        );
 
         renderer = new THREE.WebGLRenderer();
         renderer.setPixelRatio(window.devicePixelRatio);
@@ -184,7 +202,7 @@
         document.body.appendChild(labelRenderer.domElement);
 
         let controls = new OrbitControls(camera, labelRenderer.domElement);
-        controls.target.set(0, 0.5, 0);
+        controls.target.set(0, 1, 0);
         controls.update();
         controls.enablePan = false;
         controls.enableDamping = true;
@@ -355,15 +373,19 @@
           glbObj,
           function (gltf) {
             let model = gltf.scene;
-            model.position.set(0, 0.5, 0);
-           // model.scale.set(0.01, 0.01, 0.01);
+            model.position.set(
+              modelPosition.x,
+              modelPosition.y,
+              modelPosition.z
+            );
+           // model.scale.set(0.10, 0.10, 0.10)
             scene.add(model);
             displayHotspot(hotspotData);
             mixer = new THREE.AnimationMixer(model);
-            console.log("gltf.animations",gltf.animations);
-            if (gltf.animations.length > 0 ){
+            console.log("gltf.animations", gltf.animations);
+            if (gltf.animations.length > 0) {
               mixer.clipAction(gltf.animations[0]).play();
-            }            
+            }
             animate();
           },
           undefined,
