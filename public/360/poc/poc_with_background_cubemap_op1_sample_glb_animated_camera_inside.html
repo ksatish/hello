@@ -93,7 +93,8 @@
       //const glbObj = "./models/Box_v2.glb";
       //const glbObj = "./models/WoodenBox.glb";
       //const glbObj = "./models/UnderWater.glb";
-      const glbObj = "./models/City_Environment.glb";
+      //const glbObj = "./models/City_Environment.glb";
+      const glbObj = "./models/LargeWaterbody_1.glb";
       //const glbObj = "./models/Box_Animated.glb";
       //const glbObj = "./models/Horse.glb";
       //const glbObj = "./models/Flamingo.glb";
@@ -147,8 +148,8 @@
 
       const cameraPosition = {
         x: 0,
-        y: 1,
-        z: 4,
+        y: 0,
+        z: 12,
       };
 
       const modelPosition = {
@@ -378,7 +379,7 @@
               modelPosition.y,
               modelPosition.z
             );
-           // model.scale.set(0.10, 0.10, 0.10)
+            model.scale.set(0.005, 0.005, 0.005)
             scene.add(model);
             displayHotspot(hotspotData);
             mixer = new THREE.AnimationMixer(model);
