@@ -210,6 +210,8 @@
 
         let controls = new OrbitControls(camera, labelRenderer.domElement);
         controls.target.set(0, 1, 0);
+        controls.minDistance = 10;
+        controls.maxDistance = 20;
         controls.update();
         controls.enablePan = false;
         controls.enableDamping = true;
