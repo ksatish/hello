@@ -153,8 +153,8 @@
 
       const cameraPosition = {
         x: 0,
-        y: 2,
-        z: 5,
+        y: 3,
+        z: 10,
       };
 
       const modelPosition = {
@@ -186,7 +186,7 @@
         }
 
         camera = new THREE.PerspectiveCamera(
-          8,
+          10,
           window.innerWidth / window.innerHeight,
           1,
           100
@@ -211,8 +211,8 @@
 
         let controls = new OrbitControls(camera, labelRenderer.domElement);
         controls.target.set(0, 1, 0);
-        controls.minDistance = 10;
-        controls.maxDistance = 20;
+        controls.minDistance = 2;
+        controls.maxDistance = 15;
         controls.update();
         controls.enablePan = false;
         controls.enableDamping = true;
