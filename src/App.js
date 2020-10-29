@@ -23,14 +23,33 @@ export default class App extends React.Component {
   };
 
   onData(recordedBlob) {
-    console.log("chunk of real-time data is: ", recordedBlob);
+    //console.log("chunk of real-time data is: ", recordedBlob);
   }
+  
+  blobToBase64 = blob => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    return new Promise(resolve => {
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+    });
+  };
 
   onStop = (recordedBlob) => {
-    console.log("recordedBlob is: ", recordedBlob);
+    console.log("recordedBlob is: ", recordedBlob.blob);
+    console.log("recordedBlob is: ", recordedBlob.blobURL); 
+    //First way to pass data to API
+    var file = new File([recordedBlob], "recorded_file.wav", { type: recordedBlob.blob.type, lastModified: new Date() });
+    console.log("File : ", file);
+    //Another way by convrting blob to base16
+    this.blobToBase64(recordedBlob.blob).then(res => {
+      // do what you wanna do
+      console.log(res); // res is base64 now
+    });
     this.setState({
       blobURL: recordedBlob.blobURL,
-    });
+   });
   };
 
   render() {
