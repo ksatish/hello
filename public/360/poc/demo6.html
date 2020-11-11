@@ -156,13 +156,13 @@
 
       const cameraPosition = {
         x: 0,
-        y: 6,
-        z: 68,
+        y: 40,
+        z: 270,
       };
 
       const modelPosition = {
         x: 0,
-        y: 1.5,
+        y: 0,
         z: 0,
       };
 
@@ -172,15 +172,7 @@
         scene = new THREE.Scene();
 
         //showBackgroundColor(0x0000);
-        //showBackground2dImage("./images/sunlight.jpg");
-        //showBackground3dImage("./images/textures/pisa/", ".png");
-        //showBackground3dImage("./images/textures/sky/", ".png");
-        //showBackground3dImage("./images/textures/tool/", ".png");
-        //showBackground3dImage("./images/textures/galaxy/", ".png");
-        //showBackground3dImage("./images/textures/Park3Med/", ".jpg");
-        //showBackground3dImage("./images/textures/encora_op1/", ".jpg");
-        //showBackground3dImage("./images/textures/encora_op1/CleanSky/", ".jpg");
-        showBackground3dImage("./images/textures/encora_op1/Final/", ".jpg");
+       // showBackground3dImage("./images/textures/encora_op1/Final/", ".jpg");
 
         scene.add(new THREE.HemisphereLight(0xffffff, 0x000000, 0.8));
         function showBackground2dImage(image) {
@@ -189,7 +181,7 @@
         }
 
         camera = new THREE.PerspectiveCamera(
-          60,
+          70,
           window.innerWidth / window.innerHeight,
           1,
           1000
@@ -220,14 +212,14 @@
         let controls = new OrbitControls(camera, labelRenderer.domElement);
         controls.target.set(0, 1, 0);
         controls.minDistance = 10;
-        controls.maxDistance = 80;
+        controls.maxDistance = 270;
         controls.update();
         controls.enablePan = false;
         controls.enableDamping = true;
 
         let dirLight = new THREE.DirectionalLight(0xffffff);
         dirLight.position.set(0, 0, 1);
-        scene.add(dirLight);
+        //scene.add(dirLight);
 
         function showBackground3dImage(path, extention) {
           var genCubeUrls = function (prefix, postfix) {
@@ -396,7 +388,7 @@
               modelPosition.y,
               modelPosition.z
             );
-            model.scale.set(0.2, 0.2, 0.2);
+            //model.scale.set(0.2, 0.2, 0.2);
             scene.add(model);
             //displayHotspot(hotspotData);
             mixer = new THREE.AnimationMixer(model);

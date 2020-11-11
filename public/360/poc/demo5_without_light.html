@@ -200,10 +200,15 @@
           cameraPosition.z
         );
 
-        renderer = new THREE.WebGLRenderer();
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setClearColor( 0x1c2325, 1 ); // the default,                
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.gammaOutput = true;
+        renderer.gammaFactor = 1.3;
+        renderer.shadowMap.enabled = false;
+        renderer.autoClear = false;
         document.body.appendChild(renderer.domElement);
 
         labelRenderer = new CSS2DRenderer();
