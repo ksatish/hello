@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+			body {
+				font-family: "Lato", sans-serif;
+			}
+
+			.sidenav {
+				width: 100%;
+				position: fixed;
+				z-index: 1;
+				top: 20px;
+				left: 10px;
+				background: #eee;
+				overflow-x: hidden;
+				padding: 8px 0;
+			}
+
+			.sidenav a {
+				padding: 6px 8px 6px 16px;
+				text-decoration: none;
+				font-size: 25px;
+				color: #2196f3;
+				display: block;
+			}
+
+			.sidenav a:hover {
+				color: #064579;
+			}
+
+			.main {
+				margin-left: 140px; /* Same width as the sidebar + left position in px */
+				font-size: 28px; /* Increased text to enable scrolling */
+				padding: 0px 10px;
+			}
+
+			@media screen and (max-height: 450px) {
+				.sidenav {
+					padding-top: 15px;
+				}
+				.sidenav a {
+					font-size: 18px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="sidenav">
+			<a href="./poc_with_background_color.html">3D Object with Background Color</a>
+			<a href="./poc_with_background_2d_image.html">3D Object with Background 2D Image</a>
+            <a href="./poc_with_background_cubemap_pisa.html">3D Object with Background Cubemap Pisa</a>
+            <a href="./poc_with_background_cubemap_sky.html">3D Object with Background Cubemap Sky</a>
+            <a href="./poc_with_background_cubemap_tool.html">3D Object with Background Cubemap Tool</a>
+			<a href="./poc_with_background_cubemap_galaxy.html">3D Object with Background Cubemap galaxy</a>
+			<!-- <a href="./poc_with_background_cubemap_1024_resolution.html">3D Object with Background 1024px size Cubemap</a> -->
+		</div>
+
+		<div class="main"></div>
+	</body>
+</html>
