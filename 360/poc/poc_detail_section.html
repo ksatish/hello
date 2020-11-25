@@ -294,8 +294,17 @@
       }
       viewer = pannellum.viewer("panorama", {
         type: "equirectangular",
-        panorama: "./images/aus.jpg",
+        //panorama: "./images/aus.jpg",
+        //panorama: "./images/Suncorp_HomeOffice_Interior_360.jpg",
+        panorama: "./images/SunCorp_Interior_CommunityCenter_360.jpg",
+        //panorama: "./images/Stadium_Interior_360_23-11-2020.jpg",
         autoLoad: true,
+        showFullscreenCtrl : false,
+        showControls : false,
+        hotSpotDebug : true,
+        hfov: 80,
+        minHfov : 70,
+        maxHfov : 100,
         hotSpots: [
           {
             pitch: -10.1,
@@ -319,6 +328,14 @@
             cssClass: "custom-hotspot",
             createTooltipFunc: hotspot,
             createTooltipArgs: "Water Tap",
+            clickHandlerFunc: handleHotspotClick,
+          },
+          {
+            pitch: -10.221086247517112,
+            yaw: -40.906010738990254,
+            cssClass: "custom-hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: "Table by debug",
             clickHandlerFunc: handleHotspotClick,
           },
         ],
