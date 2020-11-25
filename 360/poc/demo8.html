@@ -213,15 +213,17 @@
 
         let controls = new OrbitControls(camera, labelRenderer.domElement);
         controls.target.set(0, 1, 0);
-        controls.minDistance = 10;
-        controls.maxDistance = 270;
+        controls.minDistance = 240;
+        controls.maxDistance = 370;
         controls.update();
         controls.enablePan = false;
         controls.enableDamping = true;
 
-        let dirLight = new THREE.DirectionalLight(0xffffff);
+        let dirLight = new THREE.DirectionalLight(0xc0f1ff);
         dirLight.position.set(0, 0, 1);
         //scene.add(dirLight);
+        const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+        scene.add( light );
 
         function showBackground3dImage(path, extention) {
           var genCubeUrls = function (prefix, postfix) {
