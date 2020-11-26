@@ -104,6 +104,7 @@
       //const glbObj = "./models/SunCorp_ExteriorGLB_5.glb";
       //const glbObj = "./models/SunCorp_ExteriorGLB_10-11-2020.glb";
       //const glbObj = "./models/SunCorp_ExteriorGLB_24-11-2020.glb";
+      //const glbObj = "./models/SunCorp_ExteriorGLB_25-11-2020.glb";
       const glbObj = "./models/SunCorp_ExteriorGLB_25-11-2020.glb";
       //const glbObj = "./models/Box_Animated.glb";
       //const glbObj = "./models/Horse.glb";
@@ -222,7 +223,7 @@
         let dirLight = new THREE.DirectionalLight(0xc0f1ff);
         dirLight.position.set(0, 0, 1);
         //scene.add(dirLight);
-        const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+        const light = new THREE.AmbientLight( 0x404040 ,0.6 ); // soft white light
         scene.add( light );
 
         function showBackground3dImage(path, extention) {
