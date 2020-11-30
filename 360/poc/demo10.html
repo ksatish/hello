@@ -159,7 +159,7 @@
 
       const cameraPosition = {
         x: 0,
-        y: 40,
+        y: 55,
         z: 270,
       };
 
@@ -172,20 +172,38 @@
       init();
 
       function init() { 
+
+        fetch('http://localhost:8080/models/SunCorp_ExteriorWater_GLB_26-11-2020.glb')
+            .then((response) => {
+                console.log("response :",response);
+              if (response.body) {
+                //let glbBlob;
+                //cache.put(request, response.clone()),
+                // response.arrayBuffer()
+                //     .then((data) => {
+                //       glbBlob = new Blob([data], {type: 'model/gltf-binary'});
+                //       resolve(window.URL.createObjectURL(glbBlob));
+                //     });
+                //     console.log("glbBlob",glbBlob);
+              } else {
+                reject(Error('Unable to Download Model'));
+              }
+            });
+            
         THREE.Cache.enabled = true;        
         scene = new THREE.Scene();       
 
-        //showBackgroundColor(0x0000);
-        showBackground3dImage("./images/textures/encora_op1/Final/", ".jpg");
+        //showBackgroundColor(0x00bfff);
+        showBackground3dImage("./images/textures/encora_op1/backup/", ".jpg");
 
-        scene.add(new THREE.HemisphereLight(0xffffff, 0x000000, 0.8));
+        scene.add(new THREE.HemisphereLight( 0xffffbb, 0x080820, 0.6 ));
         function showBackground2dImage(image) {
           loader = new THREE.TextureLoader();
           scene.background = loader.load(image);
         }
 
         camera = new THREE.PerspectiveCamera(
-          70,
+          65,
           window.innerWidth / window.innerHeight,
           1,
           1000
@@ -201,10 +219,11 @@
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.outputEncoding = THREE.sRGBEncoding;
-        renderer.gammaOutput = true;
+        //renderer.gammaInput = true
+        //renderer.gammaOutput = true;
         renderer.gammaFactor = 1.3;
         renderer.shadowMap.enabled = false;
-        renderer.autoClear = false;
+        renderer.autoClear = true;
         document.body.appendChild(renderer.domElement);
 
         labelRenderer = new CSS2DRenderer();
@@ -214,7 +233,7 @@
         document.body.appendChild(labelRenderer.domElement);
 
         let controls = new OrbitControls(camera, labelRenderer.domElement);
-        controls.target.set(0, 1, 0);
+        //controls.target.set(0, 1, 0);
         controls.minDistance = 240;
         controls.maxDistance = 370;
         controls.update();
@@ -224,7 +243,7 @@
         let dirLight = new THREE.DirectionalLight(0xc0f1ff);
         dirLight.position.set(0, 0, 1);
         //scene.add(dirLight);
-        const light = new THREE.AmbientLight( 0x404040 ,0.6 ); // soft white light
+        const light = new THREE.AmbientLight( 0x404040 , 1 ); // soft white light
         scene.add( light );
 
         function showBackground3dImage(path, extention) {
@@ -398,7 +417,6 @@
             scene.add(model);
             //displayHotspot(hotspotData);
             mixer = new THREE.AnimationMixer(model);
-            console.log("gltf.animations", gltf.animations);
             if (gltf.animations.length > 0) {
               mixer.clipAction(gltf.animations[0]).play();
             }
